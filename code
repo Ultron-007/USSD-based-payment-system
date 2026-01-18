@@ -1,0 +1,73 @@
+#include <iostream>
+using namespace std;
+
+class Account {
+private:
+    string pin;
+    int balance;
+
+public:
+    Account(string p, int b) {
+        pin = p;
+        balance = b;
+    }
+
+    bool checkPin(string p) {
+        return p == pin;
+    }
+
+    void showBalance() {
+        cout << "Your balance is: Rs " << balance << endl;
+    }
+
+    void sendMoney(string receiverAcc, int amount) {
+        if (amount <= balance) {
+            balance = balance - amount;
+            cout << "Rs " << amount << " sent to Account No: "
+                 << receiverAcc << endl;
+            cout << "Transaction Successful!" << endl;
+        } else {
+            cout << "Insufficient Balance!" << endl;
+        }
+    }
+};
+
+int main() {
+    Account user("1234", 5000);
+
+    string inputPin;
+    int choice;
+
+    cout << "Dial *786#\n";
+    cout << "Enter PIN: ";
+    cin >> inputPin;
+
+    if (!user.checkPin(inputPin)) {
+        cout << "Wrong PIN!";
+        return 0;
+    }
+
+    cout << "\n1. Check Balance\n2. Send Money\n3. Exit\n";
+    cin >> choice;
+
+    if (choice == 1) {
+        user.showBalance();
+    }
+    else if (choice == 2) {
+        string receiverAcc;
+        int amount;
+
+        cout << "Enter Receiver Account No: ";
+        cin >> receiverAcc;
+
+        cout << "Enter Amount: ";
+        cin >> amount;
+
+        user.sendMoney(receiverAcc, amount);
+    }
+    else {
+        cout << "Thank you for using service!";
+    }
+
+    return 0;
+}
